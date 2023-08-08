@@ -1,5 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:coin_swap/theme/color_schemes.g.dart';
+import 'package:coin_swap/ui/converter.dart';
+import 'package:flutter/material.dart';
+
+
 
 void main() {
   runApp(const MyApp());
@@ -49,7 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme
+            .of(context)
+            .colorScheme
+            .inversePrimary,
         title: Text(widget.title),
       ),
       body: Center(
@@ -64,7 +70,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Text(
                     '$_counter',
-                    style: Theme.of(context).textTheme.headlineMedium,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .headlineMedium,
                   ),
                 ],
               ),
@@ -81,87 +90,3 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class CurrencyConverterPage extends StatefulWidget {
-  const CurrencyConverterPage({super.key});
-
-  @override
-  State<CurrencyConverterPage> createState() => _CurrencyConverterPageState();
-}
-
-class _CurrencyConverterPageState extends State<CurrencyConverterPage> {
-  final TextEditingController comparedController = TextEditingController();
-  final TextEditingController selectedController = TextEditingController();
-
-  String? selectedCoin;
-  String? comparedCoin;
-
-  @override
-  Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    var coins = [
-      const DropdownMenuEntry(value: 'BRL', label: 'BRL'),
-      const DropdownMenuEntry(value: 'USD', label: 'USD')
-    ];
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Conversor de moedas',
-                      style: theme.textTheme.displaySmall),
-                  const SizedBox(height: 30),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Flexible(
-                          fit: FlexFit.tight,
-                          child: TextField(
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText:
-                                    'Digite qual valor você quer converter'),
-                          )),
-                      const SizedBox(width: 30),
-                      Flexible(
-                        child: DropdownMenu<String>(
-                          initialSelection: coins[0].value,
-                          dropdownMenuEntries: coins,
-                          onSelected: (String? coin) {
-                            setState(() {
-                              selectedCoin = coin;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 30),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: FilledButton(
-                              onPressed: () {},
-                              child: Text(
-                                'Converter',
-                                style: theme.textTheme.bodyLarge!.copyWith(
-                                    color: theme.colorScheme.onPrimary),
-                              ))),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
